@@ -14,6 +14,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v41
@@ -30,3 +38,12 @@ jobs:
           for file in "${CHANGED_FILES[@]}"; do
             echo "  - $file"
           done
+
+      - name: Find dependent files
+        env:
+          CHANGED_FILES: >-
+            ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo ""
+          echo "Analyzing dependencies..."
+          node scripts/find-dependents.js "$CHANGED_FILES"

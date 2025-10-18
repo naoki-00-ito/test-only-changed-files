@@ -1,0 +1,16 @@
+{
+  "name": "test-only-changed-files",
+  "version": "1.0.0",
+  "description": "GitHub Actions workflow to track changed files and their dependents",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {
+    "madge": "^8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naoki-00-ito/test-only-changed-files.git"
+  }
+}
