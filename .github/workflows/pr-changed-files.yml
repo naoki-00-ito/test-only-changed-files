@@ -46,4 +46,4 @@ jobs:
         run: |
           echo ""
           echo "Analyzing dependencies..."
-          node scripts/find-dependents.js "$CHANGED_FILES"
+          node scripts/find-dependents.cjs "$CHANGED_FILES"
