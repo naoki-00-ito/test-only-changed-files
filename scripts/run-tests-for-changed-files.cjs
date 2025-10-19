@@ -9,13 +9,9 @@ const path = require('path');
  */
 
 function runTestsForChangedFiles(changedFiles) {
-  if (!changedFiles || changedFiles.trim() === '') {
-    console.log('No changed files to test.');
-    console.log('Skipping tests.');
-    process.exit(0);
-  }
-
-  const fileList = changedFiles.split(',').map(f => f.trim()).filter(f => f);
+  const fileList = changedFiles 
+    ? changedFiles.split(',').map(f => f.trim()).filter(f => f)
+    : [];
   
   if (fileList.length === 0) {
     console.log('No changed files to test.');
@@ -46,7 +42,9 @@ function runTestsForChangedFiles(changedFiles) {
     console.log(`Running vitest related for ${sourceFiles.length} source file(s)...`);
     
     // Run vitest related with all changed source files
-    const command = `npx vitest related ${sourceFiles.join(' ')} --run`;
+    // Use array of arguments for safer command execution
+    const args = ['related', ...sourceFiles, '--run'];
+    const command = `npx vitest ${args.join(' ')}`;
     console.log(`Command: ${command}`);
     console.log('');
     
@@ -60,6 +58,9 @@ function runTestsForChangedFiles(changedFiles) {
   } catch (error) {
     console.error('');
     console.error('✗ Tests failed!');
+    if (error.message) {
+      console.error('Error:', error.message);
+    }
     process.exit(1);
   }
 }
