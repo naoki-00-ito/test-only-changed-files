@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
+const { spawnSync } = require('child_process');
 const path = require('path');
 
 /**
@@ -42,16 +42,23 @@ function runTestsForChangedFiles(changedFiles) {
     console.log(`Running vitest related for ${sourceFiles.length} source file(s)...`);
     
     // Run vitest related with all changed source files
-    // Use array of arguments for safer command execution
+    // Use spawnSync with argument array for safe command execution
     const args = ['related', ...sourceFiles, '--run'];
-    const command = `npx vitest ${args.join(' ')}`;
-    console.log(`Command: ${command}`);
+    console.log(`Command: npx vitest ${args.join(' ')}`);
     console.log('');
     
-    execSync(command, { 
+    const result = spawnSync('npx', ['vitest', ...args], { 
       stdio: 'inherit',
       cwd: process.cwd()
     });
+    
+    if (result.error) {
+      throw result.error;
+    }
+    
+    if (result.status !== 0) {
+      throw new Error(`Tests failed with exit code ${result.status}`);
+    }
     
     console.log('');
     console.log('✓ All tests passed for changed files and their dependents!');
