@@ -42,6 +42,18 @@ This will output:
 - The changed file(s)
 - All files that depend on the changed file(s)
 
+### Running Tests for Changed Files
+
+The repository includes a script to run tests for changed files and their dependents:
+```bash
+node scripts/run-tests-for-changed-files.cjs "src/utils.ts"
+```
+
+This script:
+- Filters changed files to include only source files (files in `src/` directory)
+- Runs `vitest related` command which automatically tests the changed files and all files that depend on them
+- Skips testing if no source files were changed (e.g., if only documentation or configuration files were modified)
+
 ## GitHub Actions Workflows
 
 ### PR Changed Files
@@ -58,13 +70,13 @@ This repository includes a GitHub Actions workflow that automatically lists all 
 The workflow will display:
 1. A list of all changed files
 2. A list of files that depend on the changed files (for JavaScript/TypeScript projects)
-
-Both outputs are available in the Actions tab for each PR run.
+3. Test results for the changed files and their dependents
 
 **How it works:**
 - The workflow uses `tj-actions/changed-files` to detect changed files
 - It then uses madge to analyze the dependency graph of JavaScript/TypeScript files
 - Files that import or depend on the changed files are identified and displayed
+- Finally, it runs `vitest related` to test all changed source files and their dependents
 
 **Note:** Dependency analysis is only available for JavaScript/TypeScript files (.js, .jsx, .ts, .tsx, .mjs, .cjs). For other file types, only the changed files list will be shown.
 

@@ -47,3 +47,12 @@ jobs:
           echo ""
           echo "Analyzing dependencies..."
           node scripts/find-dependents.cjs "$CHANGED_FILES"
+
+      - name: Run tests for changed files and dependents
+        env:
+          CHANGED_FILES: >-
+            ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo ""
+          echo "Running tests for changed files and dependents..."
+          node scripts/run-tests-for-changed-files.cjs "$CHANGED_FILES"
