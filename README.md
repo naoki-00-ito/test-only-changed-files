@@ -1,32 +1,32 @@
 # test-only-changed-files
 
 ## Overview
-This repository demonstrates GitHub Actions workflow for tracking changed files and their dependents using [madge](https://github.com/pahen/madge). It includes a Vite + React application with a clear dependency chain for testing the dependency detection.
+This repository demonstrates GitHub Actions workflow for tracking changed files and their dependents using [madge](https://github.com/pahen/madge). It includes a Vite + React + TypeScript application with a clear dependency chain for testing the dependency detection.
 
 ## Project Structure
 
 ### Source Code Dependency Chain
-The project includes JavaScript modules with clear dependencies to test dependency detection:
+The project includes TypeScript modules with clear dependencies to test dependency detection:
 
 ```
-utils.js (base utilities)
+utils.ts (base utilities)
   ↓
-calculator.js (depends on utils.js)
+calculator.ts (depends on utils.ts)
   ↓
-mathService.js (depends on calculator.js)
+mathService.ts (depends on calculator.ts)
   ↓
-App.jsx (React component using mathService.js)
+App.tsx (React component using mathService.ts)
 ```
 
 Each module has corresponding vitest unit tests:
-- `src/utils.test.js` - Tests for utility functions (add, subtract)
-- `src/calculator.test.js` - Tests for calculator operations
-- `src/mathService.test.js` - Tests for MathService class
+- `src/utils.test.ts` - Tests for utility functions (add, subtract)
+- `src/calculator.test.ts` - Tests for calculator operations
+- `src/mathService.test.ts` - Tests for MathService class
 
 ### Scripts
 
 - `npm run dev` - Start Vite development server
-- `npm run build` - Build for production
+- `npm run build` - Build for production with TypeScript compilation
 - `npm test` - Run vitest tests
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build
@@ -35,7 +35,7 @@ Each module has corresponding vitest unit tests:
 
 The repository includes a script to find files that depend on changed files:
 ```bash
-node scripts/find-dependents.cjs "src/utils.js"
+node scripts/find-dependents.cjs "src/utils.ts"
 ```
 
 This will output:

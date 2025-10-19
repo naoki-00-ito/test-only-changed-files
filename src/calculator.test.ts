@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculate } from './calculator.js';
+import { calculate } from './calculator';
 
 describe('calculator', () => {
   describe('calculate', () => {

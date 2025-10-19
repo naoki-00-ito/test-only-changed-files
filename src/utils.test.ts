@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { add, subtract } from './utils.js';
+import { add, subtract } from './utils';
 
 describe('utils', () => {
   describe('add', () => {

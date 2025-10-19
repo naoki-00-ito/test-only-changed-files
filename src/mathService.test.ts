@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { MathService } from './mathService.js';
+import { MathService } from './mathService';
 
 describe('MathService', () => {
-  let mathService;
+  let mathService: MathService;
 
   beforeEach(() => {
     mathService = new MathService();

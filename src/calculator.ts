@@ -1,7 +1,7 @@
-// Calculator - depends on utils.js
-import { add, subtract } from './utils.js';
+// Calculator - depends on utils.ts
+import { add, subtract } from './utils';
 
-export function calculate(operation, a, b) {
+export function calculate(operation: string, a: number, b: number): number {
   if (operation === 'add') {
     return add(a, b);
   } else if (operation === 'subtract') {
